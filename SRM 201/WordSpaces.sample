@@ -1,0 +1,69 @@
+-- Example 0
+at bah ate
+3
+the
+aa
+hae
+
+3
+1
+0
+5
+-- Example 1
+test this one out
+4
+test
+tst
+hoe
+not
+
+4
+0
+0
+-1
+-1
+-- Example 2
+t ah mi as this
+4
+this
+mat
+zebra
+hh
+
+4
+0
+5
+-1
+3
+-- Example 3
+abcdefghijklmnoqrstuvwxyz zywvutsrponmlkjighfedcba
+5
+foy
+foz
+fox
+ace
+rom
+
+5
+5
+-1
+-1
+0
+33
+-- Example 4
+ridikulus ridiculous
+6
+kuri
+ks
+cs
+z
+i
+rsl
+
+6
+4
+4
+14
+-1
+1
+0

@@ -1,0 +1,23 @@
+-- Example 0
+1
+-
+
+0
+-- Example 1
+1
+A
+
+1
+-- Example 2
+1
+-----Abc
+
+3
+-- Example 3
+4
+-A-B-C-D
+--------EFGHI
+JKLMNOPQR
+---STU-VW-XYZ
+
+26

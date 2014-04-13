@@ -104,7 +104,7 @@ p1 = 9
 all_right = KawigiEdit_RunTest(4, p0, True, p1) and all_right
 # ------------------
 
-p0 = ["WB" * 25] * 25
+p0 = ["WB" * 25] *  50
 p1 = 1
 all_right = KawigiEdit_RunTest(4, p0, True, p1) and all_right
 
