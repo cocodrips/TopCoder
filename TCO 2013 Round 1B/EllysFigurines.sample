@@ -1,0 +1,57 @@
+-- Example 0
+5
+.X.X.
+XX..X
+.XXX.
+...X.
+.X.XX
+1
+2
+
+3
+-- Example 1
+5
+.X.X.
+XX..X
+.X.X.
+...X.
+.X.XX
+2
+2
+
+2
+-- Example 2
+1
+XXXXXXX
+2
+3
+
+1
+-- Example 3
+5
+XXXXX
+X....
+XXX..
+X....
+XXXXX
+1
+1
+
+4
+-- Example 4
+11
+XXX..XXX..XXX.
+.X..X....X...X
+.X..X....X...X
+.X..X....X...X
+.X...XXX..XXX.
+..............
+...XX...XXX...
+....X......X..
+....X....XXX..
+....X......X..
+...XXX..XXX...
+1
+2
+
+7

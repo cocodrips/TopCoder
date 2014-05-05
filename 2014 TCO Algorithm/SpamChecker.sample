@@ -1,0 +1,36 @@
+-- Example 0
+ooooxxxo
+2
+3
+
+SPAM
+-- Example 1
+ooooxxxo
+3
+4
+
+NOT SPAM
+-- Example 2
+xooooooooooooooooooooooooooo
+1000
+1
+
+SPAM
+-- Example 3
+oxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+1000
+1
+
+NOT SPAM
+-- Example 4
+ooxoxoxooxoxxoxoxooxoxoxoxxoxx
+15
+17
+
+SPAM
+-- Example 5
+oooxoxoxoxoxoxooxooxoxooxo
+16
+18
+
+NOT SPAM
