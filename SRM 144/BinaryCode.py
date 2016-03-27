@@ -1,38 +1,9 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
-class EllysScrabble:
-    def getMin(self, letters, maxDistance):
-        N = len(letters)
-        letters = [(i, letters[i]) for i in xrange(N)]
-        for i in xrange(N):
-
-
-
-
-
-
-
-
-
-
-
-    # letters = list(letters)
-    # array = [0] * len(letters)
-    # N = len(letters)
-    # last = ''
-    # for j in range(1,maxDistance+1) + range(1,maxDistance+1)[::-1] + range(1,maxDistance+1) + range(1,maxDistance+1)[::-1]:
-    #     for k in xrange(N):
-    #         for i in xrange(len(letters) - j):
-    #             if letters[i+j] < letters[i] and array[i+j] >= -maxDistance + j and array[i] <= maxDistance - j:
-    #                 letters = letters[:i] + [letters[i+j]] + letters[i+1:i+j] + [letters[i]] + letters[i+j+1:]
-    #                 array[i] += j
-    #                 array[i+j] -= j
-    #                 array = array[:i] + [array[i+j]] + array[i+1:i+j] + [array[i]] + array[i+j+1:]
-    #                 # print ''.join(letters), array
-    # return ''.join(letters)
-    #
-
+class BinaryCode:
+    def decode(self, message):
+        return ()
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{
@@ -62,12 +33,12 @@ def pretty_str(x):
     else:
         return str(x)
 
-def do_test(letters, maxDistance, __expected):
+def do_test(message, __expected):
     startTime = time.time()
-    instance = EllysScrabble()
+    instance = BinaryCode()
     exception = None
     try:
-        __result = instance.getMin(letters, maxDistance);
+        __result = instance.decode(message);
     except:
         import traceback
         exception = traceback.format_exc()
@@ -88,33 +59,35 @@ def do_test(letters, maxDistance, __expected):
         return 0
 
 def run_tests():
-    sys.stdout.write("EllysScrabble (500 Points)\n\n")
+    sys.stdout.write("BinaryCode (300 Points)\n\n")
 
     passed = cases = 0
     case_set = set()
     for arg in sys.argv[1:]:
         case_set.add(int(arg))
 
-    with open("EllysScrabble.sample", "r") as f:
+    with open("BinaryCode.sample", "r") as f:
         while True:
             label = f.readline()
             if not label.startswith("--"): break
 
-            letters = f.readline().rstrip()
-            maxDistance = int(f.readline().rstrip())
+            message = f.readline().rstrip()
             f.readline()
-            __answer = f.readline().rstrip()
+            __answer = []
+            for i in range(0, int(f.readline())):
+                __answer.append(f.readline().rstrip())
+            __answer = tuple(__answer)
 
             cases += 1
             if len(case_set) > 0 and (cases - 1) in case_set: continue
             sys.stdout.write("  Testcase #%d ... " % (cases - 1))
-            passed += do_test(letters, maxDistance, __answer)
+            passed += do_test(message, __answer)
 
     sys.stdout.write("\nPassed : %d / %d cases\n" % (passed, cases))
 
-    T = time.time() - 1397320243
+    T = time.time() - 1450702317
     PT, TT = (T / 60.0, 75.0)
-    points = 500 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
+    points = 300 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
     sys.stdout.write("Time   : %d minutes %d secs\n" % (int(T/60), T%60))
     sys.stdout.write("Score  : %.2f points\n" % points)
 

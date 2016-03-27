@@ -1,38 +1,33 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
-class EllysScrabble:
-    def getMin(self, letters, maxDistance):
-        N = len(letters)
-        letters = [(i, letters[i]) for i in xrange(N)]
-        for i in xrange(N):
+class ABBADiv1:
+    def canObtain(self, initial, target):
+        iA = initial.count("A")
+        iB = len(initial) - iA
 
+        tA = target.count("A")
+        tB = len(target) - tA
+        # print tA - iA, tB - iB
 
+        if (tB - iB) == 0:
+            if (initial == target[:len(initial)]):
+                return "Possible"
+            return "Impossible"
 
+        is_match = []
+        add_b = (tB - iB)
+        for i in xrange(len(target) - len(initial) + 1):
+            if add_b % 2 == 0 and initial == target[i:i+len(initial)]:
+                is_match.append(i)
+            elif add_b % 2 == 1 and initial[::-1] == target[i:i+len(initial)]:
+                is_match.append(i)
 
+        for j in is_match:
+            if target[:j].count('B') == add_b - (add_b / 2) and target[0] == 'B':
+                return "Possible"
 
-
-
-
-
-
-
-    # letters = list(letters)
-    # array = [0] * len(letters)
-    # N = len(letters)
-    # last = ''
-    # for j in range(1,maxDistance+1) + range(1,maxDistance+1)[::-1] + range(1,maxDistance+1) + range(1,maxDistance+1)[::-1]:
-    #     for k in xrange(N):
-    #         for i in xrange(len(letters) - j):
-    #             if letters[i+j] < letters[i] and array[i+j] >= -maxDistance + j and array[i] <= maxDistance - j:
-    #                 letters = letters[:i] + [letters[i+j]] + letters[i+1:i+j] + [letters[i]] + letters[i+j+1:]
-    #                 array[i] += j
-    #                 array[i+j] -= j
-    #                 array = array[:i] + [array[i+j]] + array[i+1:i+j] + [array[i]] + array[i+j+1:]
-    #                 # print ''.join(letters), array
-    # return ''.join(letters)
-    #
-
+        return "Impossible"
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{
@@ -62,12 +57,12 @@ def pretty_str(x):
     else:
         return str(x)
 
-def do_test(letters, maxDistance, __expected):
+def do_test(initial, target, __expected):
     startTime = time.time()
-    instance = EllysScrabble()
+    instance = ABBADiv1()
     exception = None
     try:
-        __result = instance.getMin(letters, maxDistance);
+        __result = instance.canObtain(initial, target);
     except:
         import traceback
         exception = traceback.format_exc()
@@ -88,33 +83,33 @@ def do_test(letters, maxDistance, __expected):
         return 0
 
 def run_tests():
-    sys.stdout.write("EllysScrabble (500 Points)\n\n")
+    sys.stdout.write("ABBADiv1 (300 Points)\n\n")
 
     passed = cases = 0
     case_set = set()
     for arg in sys.argv[1:]:
         case_set.add(int(arg))
 
-    with open("EllysScrabble.sample", "r") as f:
+    with open("ABBADiv1.sample", "r") as f:
         while True:
             label = f.readline()
             if not label.startswith("--"): break
 
-            letters = f.readline().rstrip()
-            maxDistance = int(f.readline().rstrip())
+            initial = f.readline().rstrip()
+            target = f.readline().rstrip()
             f.readline()
             __answer = f.readline().rstrip()
 
             cases += 1
             if len(case_set) > 0 and (cases - 1) in case_set: continue
             sys.stdout.write("  Testcase #%d ... " % (cases - 1))
-            passed += do_test(letters, maxDistance, __answer)
+            passed += do_test(initial, target, __answer)
 
     sys.stdout.write("\nPassed : %d / %d cases\n" % (passed, cases))
 
-    T = time.time() - 1397320243
+    T = time.time() - 1437663637
     PT, TT = (T / 60.0, 75.0)
-    points = 500 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
+    points = 300 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
     sys.stdout.write("Time   : %d minutes %d secs\n" % (int(T/60), T%60))
     sys.stdout.write("Score  : %.2f points\n" % points)
 

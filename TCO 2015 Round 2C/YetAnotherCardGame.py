@@ -1,11 +1,29 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
-class EllysScrabble:
-    def getMin(self, letters, maxDistance):
-        N = len(letters)
-        letters = [(i, letters[i]) for i in xrange(N)]
-        for i in xrange(N):
+class YetAnotherCardGame:
+    def maxCards(self, petr, snuke):
+        petr = list(petr)
+        snuke = list(snuke)
+        petr.sort()
+        snuke.sort()
+
+        turn = min(len(petr) * 2, len(snuke) * 2)
+
+        #dp[turn][max] = length
+        dp = [[0 for _ in xrange(101)] for _ in xrange(turn + 1)]
+        cards = [snuke, petr]
+        for i in xrange(1, turn + 1):
+            for j in xrange(101):
+                for p in cards[i & 1]:
+                    if p > j: # おける
+                        dp[i][p] = max(dp[i - 1][j] + 1, dp[i][p])
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j])
+
+        ans = 0
+        for i in xrange(101):
+            ans = max(ans, dp[turn][i])
+        return ans
 
 
 
@@ -13,25 +31,6 @@ class EllysScrabble:
 
 
 
-
-
-
-
-    # letters = list(letters)
-    # array = [0] * len(letters)
-    # N = len(letters)
-    # last = ''
-    # for j in range(1,maxDistance+1) + range(1,maxDistance+1)[::-1] + range(1,maxDistance+1) + range(1,maxDistance+1)[::-1]:
-    #     for k in xrange(N):
-    #         for i in xrange(len(letters) - j):
-    #             if letters[i+j] < letters[i] and array[i+j] >= -maxDistance + j and array[i] <= maxDistance - j:
-    #                 letters = letters[:i] + [letters[i+j]] + letters[i+1:i+j] + [letters[i]] + letters[i+j+1:]
-    #                 array[i] += j
-    #                 array[i+j] -= j
-    #                 array = array[:i] + [array[i+j]] + array[i+1:i+j] + [array[i]] + array[i+j+1:]
-    #                 # print ''.join(letters), array
-    # return ''.join(letters)
-    #
 
 
 # CUT begin
@@ -62,12 +61,12 @@ def pretty_str(x):
     else:
         return str(x)
 
-def do_test(letters, maxDistance, __expected):
+def do_test(petr, snuke, __expected):
     startTime = time.time()
-    instance = EllysScrabble()
+    instance = YetAnotherCardGame()
     exception = None
     try:
-        __result = instance.getMin(letters, maxDistance);
+        __result = instance.maxCards(petr, snuke);
     except:
         import traceback
         exception = traceback.format_exc()
@@ -88,33 +87,39 @@ def do_test(letters, maxDistance, __expected):
         return 0
 
 def run_tests():
-    sys.stdout.write("EllysScrabble (500 Points)\n\n")
+    sys.stdout.write("YetAnotherCardGame (250 Points)\n\n")
 
     passed = cases = 0
     case_set = set()
     for arg in sys.argv[1:]:
         case_set.add(int(arg))
 
-    with open("EllysScrabble.sample", "r") as f:
+    with open("YetAnotherCardGame.sample", "r") as f:
         while True:
             label = f.readline()
             if not label.startswith("--"): break
 
-            letters = f.readline().rstrip()
-            maxDistance = int(f.readline().rstrip())
+            petr = []
+            for i in range(0, int(f.readline())):
+                petr.append(int(f.readline().rstrip()))
+            petr = tuple(petr)
+            snuke = []
+            for i in range(0, int(f.readline())):
+                snuke.append(int(f.readline().rstrip()))
+            snuke = tuple(snuke)
             f.readline()
-            __answer = f.readline().rstrip()
+            __answer = int(f.readline().rstrip())
 
             cases += 1
             if len(case_set) > 0 and (cases - 1) in case_set: continue
             sys.stdout.write("  Testcase #%d ... " % (cases - 1))
-            passed += do_test(letters, maxDistance, __answer)
+            passed += do_test(petr, snuke, __answer)
 
     sys.stdout.write("\nPassed : %d / %d cases\n" % (passed, cases))
 
-    T = time.time() - 1397320243
+    T = time.time() - 1437199209
     PT, TT = (T / 60.0, 75.0)
-    points = 500 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
+    points = 250 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
     sys.stdout.write("Time   : %d minutes %d secs\n" % (int(T/60), T%60))
     sys.stdout.write("Score  : %.2f points\n" % points)
 

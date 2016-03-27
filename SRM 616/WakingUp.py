@@ -1,42 +1,37 @@
 # -*- coding: utf-8 -*-
-import math,string,itertools,fractions,heapq,collections,re,array,bisect
-
-class EllysScrabble:
-    def getMin(self, letters, maxDistance):
-        N = len(letters)
-        letters = [(i, letters[i]) for i in xrange(N)]
-        for i in xrange(N):
+import math, string, itertools, fractions, heapq, collections, re, array, bisect
 
 
+class WakingUp:
+    def maxSleepiness(self, period, start, volume, D):
+        pp = 7 * 5 * 9 * 8
+        mini = 100000000
+        nemuke = 0
+        for t in xrange(pp):
+            for p, s, v in zip(period, start, volume):
+                if t - s >= 0 and (t - s) % p == 0:
+                    nemuke -= v
+            mini = min(mini, nemuke)
+            nemuke += D
+        mini1 = mini
 
+        for t in xrange(pp, 2 * pp):
+            for p, s, v in zip(period, start, volume):
+                if t - s >= 0 and (t - s) % p == 0:
+                    nemuke -= v
+            mini = min(mini, nemuke)
+            nemuke += D
+        mini2 = mini
 
+        if mini2 != mini1 or mini > 0:
+            return -1
 
-
-
-
-
-
-
-    # letters = list(letters)
-    # array = [0] * len(letters)
-    # N = len(letters)
-    # last = ''
-    # for j in range(1,maxDistance+1) + range(1,maxDistance+1)[::-1] + range(1,maxDistance+1) + range(1,maxDistance+1)[::-1]:
-    #     for k in xrange(N):
-    #         for i in xrange(len(letters) - j):
-    #             if letters[i+j] < letters[i] and array[i+j] >= -maxDistance + j and array[i] <= maxDistance - j:
-    #                 letters = letters[:i] + [letters[i+j]] + letters[i+1:i+j] + [letters[i]] + letters[i+j+1:]
-    #                 array[i] += j
-    #                 array[i+j] -= j
-    #                 array = array[:i] + [array[i+j]] + array[i+1:i+j] + [array[i]] + array[i+j+1:]
-    #                 # print ''.join(letters), array
-    # return ''.join(letters)
-    #
-
+        return -mini
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{
 import sys, time, math
+
 
 def tc_equal(expected, received):
     try:
@@ -54,22 +49,25 @@ def tc_equal(expected, received):
     except:
         return False
 
+
 def pretty_str(x):
     if type(x) == str:
         return '"%s"' % x
     elif type(x) == tuple:
-        return '(%s)' % (','.join( (pretty_str(y) for y in x) ) )
+        return '(%s)' % (','.join((pretty_str(y) for y in x)) )
     else:
         return str(x)
 
-def do_test(letters, maxDistance, __expected):
+
+def do_test(period, start, volume, D, __expected):
     startTime = time.time()
-    instance = EllysScrabble()
+    instance = WakingUp()
     exception = None
     try:
-        __result = instance.getMin(letters, maxDistance);
+        __result = instance.maxSleepiness(period, start, volume, D);
     except:
         import traceback
+
         exception = traceback.format_exc()
     elapsed = time.time() - startTime   # in sec
 
@@ -87,36 +85,49 @@ def do_test(letters, maxDistance, __expected):
         sys.stdout.write("           Received: " + pretty_str(__result) + "\n")
         return 0
 
+
 def run_tests():
-    sys.stdout.write("EllysScrabble (500 Points)\n\n")
+    sys.stdout.write("WakingUp (250 Points)\n\n")
 
     passed = cases = 0
     case_set = set()
     for arg in sys.argv[1:]:
         case_set.add(int(arg))
 
-    with open("EllysScrabble.sample", "r") as f:
+    with open("WakingUp.sample", "r") as f:
         while True:
             label = f.readline()
             if not label.startswith("--"): break
 
-            letters = f.readline().rstrip()
-            maxDistance = int(f.readline().rstrip())
+            period = []
+            for i in range(0, int(f.readline())):
+                period.append(int(f.readline().rstrip()))
+            period = tuple(period)
+            start = []
+            for i in range(0, int(f.readline())):
+                start.append(int(f.readline().rstrip()))
+            start = tuple(start)
+            volume = []
+            for i in range(0, int(f.readline())):
+                volume.append(int(f.readline().rstrip()))
+            volume = tuple(volume)
+            D = int(f.readline().rstrip())
             f.readline()
-            __answer = f.readline().rstrip()
+            __answer = int(f.readline().rstrip())
 
             cases += 1
             if len(case_set) > 0 and (cases - 1) in case_set: continue
             sys.stdout.write("  Testcase #%d ... " % (cases - 1))
-            passed += do_test(letters, maxDistance, __answer)
+            passed += do_test(period, start, volume, D, __answer)
 
     sys.stdout.write("\nPassed : %d / %d cases\n" % (passed, cases))
 
-    T = time.time() - 1397320243
+    T = time.time() - 1406787396
     PT, TT = (T / 60.0, 75.0)
-    points = 500 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
-    sys.stdout.write("Time   : %d minutes %d secs\n" % (int(T/60), T%60))
+    points = 250 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
+    sys.stdout.write("Time   : %d minutes %d secs\n" % (int(T / 60), T % 60))
     sys.stdout.write("Score  : %.2f points\n" % points)
+
 
 if __name__ == '__main__':
     run_tests()

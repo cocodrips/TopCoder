@@ -1,42 +1,32 @@
 # -*- coding: utf-8 -*-
-import math,string,itertools,fractions,heapq,collections,re,array,bisect
+import math, string, itertools, fractions, heapq, collections, re, array, bisect
+
 
 class EllysScrabble:
     def getMin(self, letters, maxDistance):
-        N = len(letters)
-        letters = [(i, letters[i]) for i in xrange(N)]
-        for i in xrange(N):
+        letters = list(letters)
 
+        result = []
+        for i in xrange(len(letters)):
+            minimum = 'z'
+            minimum_i = 0
+            for j in xrange(-maxDistance, maxDistance + 1):
+                if 0 <= i + j < len(letters):
+                    if letters[i + j] < minimum:
+                        minimum_i = i + j
+                        minimum = letters[i + j]
 
+            if i >= maxDistance and letters[i - maxDistance] != 'z':
+                minimum_i = i - maxDistance
+            result.append(letters[minimum_i])
+            letters[minimum_i] = 'z'
 
-
-
-
-
-
-
-
-
-    # letters = list(letters)
-    # array = [0] * len(letters)
-    # N = len(letters)
-    # last = ''
-    # for j in range(1,maxDistance+1) + range(1,maxDistance+1)[::-1] + range(1,maxDistance+1) + range(1,maxDistance+1)[::-1]:
-    #     for k in xrange(N):
-    #         for i in xrange(len(letters) - j):
-    #             if letters[i+j] < letters[i] and array[i+j] >= -maxDistance + j and array[i] <= maxDistance - j:
-    #                 letters = letters[:i] + [letters[i+j]] + letters[i+1:i+j] + [letters[i]] + letters[i+j+1:]
-    #                 array[i] += j
-    #                 array[i+j] -= j
-    #                 array = array[:i] + [array[i+j]] + array[i+1:i+j] + [array[i]] + array[i+j+1:]
-    #                 # print ''.join(letters), array
-    # return ''.join(letters)
-    #
-
+        return ''.join(result)
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{
 import sys, time, math
+
 
 def tc_equal(expected, received):
     try:
@@ -54,13 +44,15 @@ def tc_equal(expected, received):
     except:
         return False
 
+
 def pretty_str(x):
     if type(x) == str:
         return '"%s"' % x
     elif type(x) == tuple:
-        return '(%s)' % (','.join( (pretty_str(y) for y in x) ) )
+        return '(%s)' % (','.join((pretty_str(y) for y in x)) )
     else:
         return str(x)
+
 
 def do_test(letters, maxDistance, __expected):
     startTime = time.time()
@@ -70,8 +62,9 @@ def do_test(letters, maxDistance, __expected):
         __result = instance.getMin(letters, maxDistance);
     except:
         import traceback
+
         exception = traceback.format_exc()
-    elapsed = time.time() - startTime   # in sec
+    elapsed = time.time() - startTime  # in sec
 
     if exception is not None:
         sys.stdout.write("RUNTIME ERROR: \n")
@@ -86,6 +79,7 @@ def do_test(letters, maxDistance, __expected):
         sys.stdout.write("           Expected: " + pretty_str(__expected) + "\n")
         sys.stdout.write("           Received: " + pretty_str(__result) + "\n")
         return 0
+
 
 def run_tests():
     sys.stdout.write("EllysScrabble (500 Points)\n\n")
@@ -112,11 +106,12 @@ def run_tests():
 
     sys.stdout.write("\nPassed : %d / %d cases\n" % (passed, cases))
 
-    T = time.time() - 1397320243
+    T = time.time() - 1428766283
     PT, TT = (T / 60.0, 75.0)
     points = 500 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
-    sys.stdout.write("Time   : %d minutes %d secs\n" % (int(T/60), T%60))
+    sys.stdout.write("Time   : %d minutes %d secs\n" % (int(T / 60), T % 60))
     sys.stdout.write("Score  : %.2f points\n" % points)
+
 
 if __name__ == '__main__':
     run_tests()

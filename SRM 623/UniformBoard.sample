@@ -1,0 +1,51 @@
+-- Example 0
+2
+AP
+.A
+0
+
+1
+-- Example 1
+2
+AP
+.A
+1
+
+2
+-- Example 2
+3
+PPP
+APA
+A.P
+2
+
+3
+-- Example 3
+3
+AAA
+PPP
+AAA
+10
+
+3
+-- Example 4
+1
+.
+1000
+
+0
+-- Example 5
+10
+PPAAPA..AP
+PPA.APAP..
+..P.AA.PPP
+P.P..APAA.
+P.P..P.APA
+PPA..AP.AA
+APP..AAPAA
+P.P.AP...P
+.P.A.PAPPA
+..PAPAP..P
+10
+
+15
